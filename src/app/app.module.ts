@@ -3,19 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
 
-// Angular Material
-import { MatSliderModule } from '@angular/material/slider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 // Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'
+import { SharedModule } from './components/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,15 +19,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    MatSliderModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

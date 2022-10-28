@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  loading = false;
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
@@ -38,5 +38,15 @@ export class LoginComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+  redirectToDashboard() {
+
+  }
+  fakeLoading() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+      this.redirectToDashboard()
+    }, 3000)
   }
 }
