@@ -2,12 +2,12 @@
     <mat-toolbar>
         <span>Usuarios</span>
         <div class="example-spacer"></div>
-        <button mat-raised-button color="primary">Agregar</button>
+        <button mat-raised-button color="primary" routerLink="/dashboard/crear-usuario">Agregar</button>
     </mat-toolbar>
     <div *ngIf="listUsuarios&& listUsuarios.length > 0">
         <mat-form-field appearance="standard">
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input />
         </mat-form-field>
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" mat-sort >
