@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Usuario } from '../interfaces/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -14,4 +15,10 @@ export class UsuarioService {
   ];
   
   constructor() { }
+  getUsuarios() {
+    return this.listUsuarios.slice();
+  }
+  eliminarUsuario(index: number) {
+    this.listUsuarios.splice(index, 1)
+  }
 }

@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Usuario } from 'src/app/interfaces/usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
@@ -11,15 +13,7 @@ import { Usuario } from 'src/app/interfaces/usuario';
   styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit, AfterViewInit {
-  listUsuarios: Usuario[] = [
-    { usuario: 'jperez', nombre: 'Juan', apellido: 'Perez', sexo: 'Masculino' },
-    { usuario: 'mgomez', nombre: 'Martin', apellido: 'Gomez', sexo: 'Masculino' },
-    { usuario: 'ngarcia',nombre: 'Nicolas',apellido: 'Garcia',sexo: 'Masculino' },
-    { usuario: 'jperez', nombre: 'Juan', apellido: 'Perez', sexo: 'Masculino' },
-    { usuario: 'mgomez', nombre: 'Micaela', apellido: 'Gomez', sexo: 'Femenino' },
-    { usuario: 'ngarcia', nombre: 'Nicolas', apellido: 'Garcia', sexo: 'Masculino' },
-  ];
-  
+  listUsuarios: Usuario[] = [];
   displayedColumns: string[] = [
     'usuario',
     'nombre',
@@ -28,21 +22,39 @@ export class InicioComponent implements OnInit, AfterViewInit {
     'acciones',
   ];
   
-  dataSource= new MatTableDataSource(this.listUsuarios)
+  dataSource!: MatTableDataSource<Usuario>
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {}
+  constructor(private _usuarioService: UsuarioService, private _snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cargarUsuarios()
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort= this.sort
   }
+  cargarUsuarios() {
+    this.listUsuarios = this._usuarioService.getUsuarios();
+    this.dataSource= new MatTableDataSource(this.listUsuarios)
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  eliminarUsuario(index: number) {
+    this._usuarioService.eliminarUsuario(index);
+    this.cargarUsuarios();
+    this._snackBar.open('El usuario eliminado con éxito', '', {
+      duration: 1500,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+  editarUsuario(index: number) {
+    // this._usuarioService.e(index);
+    this.cargarUsuarios();
+  }
 }
